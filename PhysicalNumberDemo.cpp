@@ -12,14 +12,14 @@
 #include <sstream>
 #include <stdexcept>
 using std::cout, std::endl, std::boolalpha, std::istringstream;
-#include "PhysicalNumber.hpp"
-#include "Unit.hpp"
+#include "PhysicalNumber.h"
+#include "Unit.h"
 using ariel::PhysicalNumber, ariel::Unit;
 
 int main() {
   try {
-    PhysicalNumber a(2, Unit::_KM);   // 2 kilometers
-    PhysicalNumber b(300, Unit::_M );  // 300 meters
+    PhysicalNumber a(2, Unit::KM);   // 2 kilometers
+    PhysicalNumber b(300, Unit::M );  // 300 meters
 
     std :: cout << (a)<< endl;   // Prints "2[km]"
     cout << (a+b) << endl;   // Prints "2.3[km]"
@@ -33,7 +33,7 @@ int main() {
     cout << (a != b) << endl;  // Prints "true"
     cout << (a >= b) << endl;  // Prints "true"
     cout << (a < b) << endl;  // Prints "false"*/
-    cout << (a==PhysicalNumber(2000, Unit::_M)) << endl;  // Prints "true"
+    cout << (a==PhysicalNumber(2000, Unit::M)) << endl;  // Prints "true"
 
     /*istringstream input("700[kg]");
     input >> a;
