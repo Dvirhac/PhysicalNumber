@@ -3,4 +3,4 @@ project(PhysicalNumber)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(PhysicalNumber PhysicalNumber.hpp Unit.hpp PhysicalNumberDemo.cpp PhysicalNumber.cpp)
+add_executable(PhysicalNumber PhysicalNumber.h Unit.h PhysicalNumberDemo.cpp PhysicalNumber.cpp)

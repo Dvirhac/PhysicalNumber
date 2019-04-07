@@ -6,9 +6,9 @@
 #define PHYSICALNUMBER_UNIT_HPP
 namespace ariel {
     enum class Unit {
-        _TON, _HOUR, _KM,
-        _KG, _MIN, _M,
-        _G, _SEC, _CM
+        TON, HOUR, KM,
+        KG, MIN,M,
+        G, SEC, CM
     };
 }
 
