@@ -42,7 +42,7 @@ namespace ariel{
         PhysicalNumber operator- ( PhysicalNumber F2);
         PhysicalNumber operator- ();
 
-        //compare operators
+        //compare operatorss
         bool operator > (const PhysicalNumber& F);
         bool operator <= (const PhysicalNumber& F);
         bool operator >= (const PhysicalNumber& F);
