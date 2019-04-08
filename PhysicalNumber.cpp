@@ -44,6 +44,7 @@ ostream& ariel:: operator<<(ostream &os, const ariel::PhysicalNumber& F) {
 istream &ariel::operator>>(istream &is, PhysicalNumber &F) {
     string input;
     is >> input;
+    int counter;
 
     size_t index = input.find_first_of('[');
     size_t lastIndex = input.find_first_of(']');
@@ -53,6 +54,10 @@ istream &ariel::operator>>(istream &is, PhysicalNumber &F) {
     F.value = stod(value);
     transform(unit.begin(), unit.end(), unit.begin(), ::toupper);
 
+    for (int i = 0 ; i < 9 ; i++){
+        if (unit == units[i]) counter++;
+    }
+    if (counter != 1) throw invalid_argument("NOT HERE!");
 
     switch (unit[0]){
         case 'K':{
