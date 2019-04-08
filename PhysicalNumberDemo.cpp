@@ -21,7 +21,7 @@ int main() {
     PhysicalNumber a(2, Unit::KM);   // 2 kilometers
     PhysicalNumber b(300, Unit::M );  // 300 meters
 
-    std :: cout << (a)<< endl;   // Prints "2[km]"
+    std :: cout << a<< endl;   // Prints "2[km]"
     cout << (a+b) << endl;   // Prints "2.3[km]"
     cout << (b-a) << endl;   // Prints "-1700[m]"
     cout << (-a) << endl;   // Prints "-2[km]"
@@ -34,8 +34,15 @@ int main() {
     cout << (a >= b) << endl;  // Prints "true"
     cout << (a < b) << endl;  // Prints "false"*/
     cout << (a==PhysicalNumber(2000, Unit::M)) << endl;  // Prints "true"
+    cout <<( a-=b );
+    cout <<((a++)++);
 
-    /*istringstream input("700[kg]");
+
+
+
+
+
+    istringstream input("700[kg]");
     input >> a;
     cout << a << endl;   // Prints "700[kg]"
     cout << (a += PhysicalNumber(1, Unit::TON)) << endl;  // prints "1700[kg]"
@@ -46,7 +53,7 @@ int main() {
     } catch (const std::exception& ex) {
       cout << ex.what() << endl; // Prints "Units do not match - [m] cannot be converted to [kg]"
     }
- */ } catch (...) {
+  } catch (...) {
     cout << "Unexpected exception!" << endl;
   }
   return 100;

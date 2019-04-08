@@ -33,14 +33,32 @@ namespace ariel{
             this->unit = physicalNumber.unit;
             this->type = physicalNumber.type;
         }
+
         PhysicalNumber();
 
         //operators
         friend ostream& operator<< (ostream& os, const PhysicalNumber& F);
+        friend istream& operator>> (istream& is, PhysicalNumber& F);
+
 
         PhysicalNumber operator+ (const PhysicalNumber& f);
-        PhysicalNumber operator- ( PhysicalNumber F2);
+        PhysicalNumber operator- (const PhysicalNumber& F2);
         PhysicalNumber operator- ();
+        PhysicalNumber operator+ ();
+        PhysicalNumber& operator+=(const PhysicalNumber& F);
+        PhysicalNumber& operator-=(const PhysicalNumber& F);
+        PhysicalNumber& operator++ (int);
+        PhysicalNumber& operator++ ();
+        PhysicalNumber& operator-- (int);
+        PhysicalNumber& operator-- ();
+
+
+
+
+
+
+
+
 
         //compare operatorss
         bool operator > (const PhysicalNumber& F);

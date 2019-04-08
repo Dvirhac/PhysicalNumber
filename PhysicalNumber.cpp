@@ -2,6 +2,7 @@
 // Created by Dvir on 03/04/2019.
 //
 
+#include <sstream>
 #include "PhysicalNumber.h"
 #include "stdlib.h"
 #include "string"
@@ -39,8 +40,18 @@ ostream& ariel:: operator<<(ostream &os, const ariel::PhysicalNumber& F) {
 
 }
 
+istream &ariel::operator>>(istream &is, PhysicalNumber &F) {
+    string value;
+    string type;
+    stringstream valueStream;
+ while(getline(is,value,'[')){
+
+ }
+}
+
 
 PhysicalNumber ariel:: PhysicalNumber:: operator+ (const PhysicalNumber& f)  {
+
 
     PhysicalNumber F1 (convert(*this));
     PhysicalNumber F2 (convert(f));
@@ -109,20 +120,64 @@ PhysicalNumber ariel:: PhysicalNumber:: operator+ (const PhysicalNumber& f)  {
 
 }
 
-PhysicalNumber ariel::PhysicalNumber:: operator- ( PhysicalNumber F2){
+PhysicalNumber ariel::PhysicalNumber:: operator- (const PhysicalNumber& F2){
     PhysicalNumber newF2(-(F2.value),F2.unit);
     return (*this + newF2);
 }
 
 
-PhysicalNumber  ariel::PhysicalNumber::operator-() {
+PhysicalNumber  ariel::PhysicalNumber:: operator-() {
     return PhysicalNumber(-(this->value),this->unit);
+}
+
+PhysicalNumber PhysicalNumber::operator+() {
+
+    return *this;
+}
+
+
+PhysicalNumber& ariel:: PhysicalNumber:: operator+=(const PhysicalNumber &F) {
+    if (this->type != F.type) throw "CANNOT ADD";
+    PhysicalNumber physicalNumber(*this + F);
+    this->value = physicalNumber.value;
+    this->type = physicalNumber.type;
+    return *this;
+
+}
+PhysicalNumber &PhysicalNumber::operator-=(const PhysicalNumber &F) {
+    if (this->type != F.type) throw "CANNOT ADD";
+    PhysicalNumber physicalNumber(*this - F);
+    this->value = physicalNumber.value;
+    this->type = physicalNumber.type;
+    return *this;
+}
+PhysicalNumber& PhysicalNumber::operator++(int) {
+
+    this->value+=1;
+    return *this;
+}
+
+PhysicalNumber &PhysicalNumber::operator++() {
+    this->value +=1;
+    return *this;
+}
+PhysicalNumber &PhysicalNumber::operator--(int) {
+    this->value -=1;
+    return *this;
+}
+
+PhysicalNumber &PhysicalNumber::operator--() {
+    this->value -=1;
+    return *this;
 }
 
 
 
+
+
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//----------------COMPArE OPERATORS---------------------------
+//----------------COMPARE OPERATORS---------------------------
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -238,6 +293,26 @@ PhysicalNumber ariel::PhysicalNumber:: convert(const PhysicalNumber& F) {
     return f;
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
