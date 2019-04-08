@@ -18,24 +18,28 @@ using ariel::PhysicalNumber, ariel::Unit;
 
 int main() {
   try {
-    PhysicalNumber a(2, Unit::KM);   // 2 kilometers
-    PhysicalNumber b(300, Unit::M );  // 300 meters
+    PhysicalNumber a(2, Unit::km);   // 2 kilometers
+    PhysicalNumber b(300, Unit::m );  // 300 meters
+    cout << (a+=b);
+    cout << (a+=b);
 
-    std :: cout << a<< endl;   // Prints "2[km]"
-    cout << (a+b) << endl;   // Prints "2.3[km]"
-    cout << (b-a) << endl;   // Prints "-1700[m]"
-    cout << (-a) << endl;   // Prints "-2[km]"
+    cout << a;
 
-       //cout << boolalpha; // print booleans as strings from now on
-    cout << (a <= b) << endl;  // Prints "false"
-     cout << (a > b) << endl;  // Prints "true"
-    cout << (a == b) << endl;  // Prints "false"
-    cout << (a != b) << endl;  // Prints "true"
-    cout << (a >= b) << endl;  // Prints "true"
-    cout << (a < b) << endl;  // Prints "false"*/
-    cout << (a==PhysicalNumber(2000, Unit::M)) << endl;  // Prints "true"
-    cout <<( a-=b );
-    cout <<((a++)++);
+//    std :: cout << a<< endl;   // Prints "2[km]"
+//    cout << (a+b) << endl;   // Prints "2.3[km]"
+//    cout << (b-a) << endl;   // Prints "-1700[m]"
+//    cout << (-a) << endl;   // Prints "-2[km]"
+//
+//       //cout << boolalpha; // print booleans as strings from now on
+//    cout << (a <= b) << endl;  // Prints "false"
+//     cout << (a > b) << endl;  // Prints "true"
+//    cout << (a == b) << endl;  // Prints "false"
+//    cout << (a != b) << endl;  // Prints "true"
+//    cout << (a >= b) << endl;  // Prints "true"
+//    cout << (a < b) << endl;  // Prints "false"*/
+//    cout << (a==PhysicalNumber(2000, Unit::m)) << endl;  // Prints "true"
+//    cout <<( a-=b );
+//    cout <<((a++)++);
 
 
 
@@ -44,8 +48,9 @@ int main() {
 
     istringstream input("700[kg]");
     input >> a;
+    PhysicalNumber c(1,Unit::ton);
     cout << a << endl;   // Prints "700[kg]"
-    cout << (a += PhysicalNumber(1, Unit::TON)) << endl;  // prints "1700[kg]"
+    cout << (a += c) << endl;  // prints "1700[kg]"
     cout << a << endl;   // Prints "1700[kg]" since a has changed.
 
     try {

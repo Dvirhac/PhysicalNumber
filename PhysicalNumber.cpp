@@ -3,13 +3,16 @@
 //
 
 #include <sstream>
+#include <algorithm>
 #include "PhysicalNumber.h"
 #include "stdlib.h"
 #include "string"
-
 using namespace ariel;
 using namespace std;
 
+
+
+static string units[] = {"ton","hour","km","kg","min","m","g","sec","cm"};
 
 
 
@@ -17,41 +20,67 @@ ostream& ariel:: operator<<(ostream &os, const ariel::PhysicalNumber& F) {
 
     switch (F.unit) {
 
-        case Unit ::KM : cout<< F.value<< "[KM]"<<endl; break;
+        case Unit ::km : cout<< F.value<< "[km]"<<endl; break;
 
-        case Unit ::M : cout<< F.value<< "[M]"<<endl; break;
+        case Unit ::m : cout<< F.value<< "[m]"<<endl; break;
 
-        case Unit ::CM : cout<< F.value<< "[CM]"<<endl; break;
+        case Unit ::cm : cout<< F.value<< "[cm]"<<endl; break;
 
-        case Unit ::TON : cout<< F.value<< "[TON]"<<endl; break;
+        case Unit ::ton : cout<< F.value<< "[ton]"<<endl; break;
 
-        case Unit ::KG : cout<< F.value<< "[KG]"<<endl; break;
+        case Unit ::kg : cout<< F.value<< "[kg]"<<endl; break;
 
-        case Unit ::G: cout<< F.value<< "[G]"<<endl; break;
+        case Unit ::g: cout<< F.value<< "[g]"<<endl; break;
 
-        case Unit ::HOUR : cout<< F.value<< "[HOUR]"<<endl; break;
+        case Unit ::hour : cout<< F.value<< "[hour]"<<endl; break;
 
-        case Unit ::MIN : cout<< F.value<< "[MIN]"<<endl; break;
+        case Unit ::min : cout<< F.value<< "[min]"<<endl; break;
 
-        case Unit ::SEC : cout<< F.value<< "[SEC]"<<endl; break;
+        case Unit ::sec : cout<< F.value<< "[sec]"<<endl; break;
 
     }
-
 
 }
 
 istream &ariel::operator>>(istream &is, PhysicalNumber &F) {
-    string value;
-    string type;
-    stringstream valueStream;
- while(getline(is,value,'[')){
+    string input;
+    is >> input;
 
- }
+    size_t index = input.find_first_of('[');
+    size_t lastIndex = input.find_first_of(']');
+    string value = input.substr(0,index);
+    string unit = input.substr(index+1,lastIndex-index-1);
+
+    F.value = stod(value);
+    transform(unit.begin(), unit.end(), unit.begin(), ::tolower);
+
+
+    switch (unit[0]){
+        case 'k':{
+            if (unit[1] == 'g') F.unit = Unit :: kg;
+                else F.unit = Unit:: km;
+                break;
+        }
+        case 'm':{
+            if (unit[1] == 'i') F.unit = Unit :: min;
+            else F.unit = Unit:: m;
+            break;
+        }
+        case 'h': F.unit = Unit:: hour; break;
+        case  't': F.unit = Unit:: ton; break;
+        case 's': F.unit = Unit:: sec; break;
+        case 'g': F.unit = Unit:: g; break;
+        case 'c': F.unit = Unit:: cm; break;
+
+    }
+    F.type = (int)F.unit % 3;
+
 }
 
 
-PhysicalNumber ariel:: PhysicalNumber:: operator+ (const PhysicalNumber& f)  {
 
+
+PhysicalNumber ariel:: PhysicalNumber:: operator+ (const PhysicalNumber& f)  {
 
     PhysicalNumber F1 (convert(*this));
     PhysicalNumber F2 (convert(f));
@@ -60,7 +89,6 @@ PhysicalNumber ariel:: PhysicalNumber:: operator+ (const PhysicalNumber& f)  {
     Unit f2U = f.unit;
 
 
-    cout<<"the res is " <<  F1.value+F2.value<<endl;
     if (F1.type == F2.type){
         double  result = F1.value + F2.value;
 
@@ -70,12 +98,12 @@ PhysicalNumber ariel:: PhysicalNumber:: operator+ (const PhysicalNumber& f)  {
 
         if ( F1.type % 3 == 0 ){
             switch (f1U){
-                case Unit :: TON:
-                    return PhysicalNumber(result/1000000 , Unit::TON);
-                case Unit :: KG:
-                    return PhysicalNumber(result/1000 , Unit::KG);
-                case Unit :: G:
-                    return PhysicalNumber(result , Unit::G);
+                case Unit :: ton:
+                    return PhysicalNumber(result/1000000 , Unit::ton);
+                case Unit :: kg:
+                    return PhysicalNumber(result/1000 , Unit::kg);
+                case Unit :: g:
+                    return PhysicalNumber(result , Unit::g);
 
             }
 
@@ -87,12 +115,12 @@ PhysicalNumber ariel:: PhysicalNumber:: operator+ (const PhysicalNumber& f)  {
 
         else if (F1.type % 3 == 1 ){
             switch (f1U) {
-                case Unit::HOUR:
-                    return PhysicalNumber(result / 3600 , Unit::HOUR);
-                case Unit::MIN:
-                    return PhysicalNumber(result / 60, Unit::MIN);
-                case Unit::G:
-                    return PhysicalNumber(result, Unit::SEC);
+                case Unit::hour:
+                    return PhysicalNumber(result / 3600 , Unit::hour);
+                case Unit::min:
+                    return PhysicalNumber(result / 60, Unit::min);
+                case Unit::g:
+                    return PhysicalNumber(result, Unit::sec);
             }
         }
 
@@ -103,20 +131,25 @@ PhysicalNumber ariel:: PhysicalNumber:: operator+ (const PhysicalNumber& f)  {
         else {
 
             switch (f1U) {
-                case Unit::KM:
-                    return PhysicalNumber(result / 100000 , Unit::KM);
-                case Unit::M:
-                    return PhysicalNumber(result / 100, Unit::M);
-                case Unit::G:
-                    return PhysicalNumber(result, Unit::CM);
+                case Unit::km:
+                    return PhysicalNumber(result / 100000 , Unit::km);
+                case Unit::m:
+                    return PhysicalNumber(result / 100, Unit::m);
+                case Unit::g:
+                    return PhysicalNumber(result, Unit::cm);
             }
 
         }
 
+
+    } else{
+        string num1 = units[(int)this->unit];
+        string num2 = units[(int)f.unit];
+        string s1 = "Units do not match - [";
+        string s2 = "] cannot be converted to [";
+        string s3 = "]";
+        throw std:: invalid_argument(s1 + num1 +s2 +num2 + s3 );
     }
-
-
-    else throw "CANOT OPARATE";
 
 }
 
@@ -266,13 +299,9 @@ bool ariel :: PhysicalNumber:: operator != (const PhysicalNumber& F){
 
 
 
-
-
-
-
-
-
-
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//----------------OTHER FUNCTIONS---------------------------
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 PhysicalNumber ariel::PhysicalNumber:: convert(const PhysicalNumber& F) {
@@ -282,17 +311,19 @@ PhysicalNumber ariel::PhysicalNumber:: convert(const PhysicalNumber& F) {
 
     switch(F.unit){
 
-        case Unit ::TON :f.value = F.value * 1000000; break;
-        case Unit ::KG :  f.value = F.value * 1000; break;
-        case Unit ::HOUR :  f.value = F.value * 3600; break;
-        case Unit ::MIN :  f.value = F.value * 60; break;
-        case Unit ::KM :  f.value = F.value * 100000; break;
-        case Unit ::M :  f.value = F.value * 100; break;
+        case Unit ::ton :f.value = F.value * 1000000; break;
+        case Unit ::kg :  f.value = F.value * 1000; break;
+        case Unit ::hour :  f.value = F.value * 3600; break;
+        case Unit ::min :  f.value = F.value * 60; break;
+        case Unit ::km :  f.value = F.value * 100000; break;
+        case Unit ::m :  f.value = F.value * 100; break;
     }
 
     return f;
 
 }
+
+
 
 
 

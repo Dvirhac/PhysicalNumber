@@ -7,8 +7,13 @@
 
 #include <iostream>
 #include "Unit.h"
+#include <exception>
+
+
 namespace ariel{
     using namespace std;
+    static const char* units[] = {"ton","hour","km","kg","min","m","g","sec","cm"};
+
     class PhysicalNumber{
 
     public:
@@ -16,14 +21,14 @@ namespace ariel{
         Unit unit;
         double value;
         int type;
-        //constructors
 
+
+        //constructors
         PhysicalNumber(double value, Unit unit){
             this->unit = unit;
             this->value = value;
             type = (int)unit % 3;
         }
-
 
 
         //copy constructor
