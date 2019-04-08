@@ -19,23 +19,23 @@ ostream& ariel:: operator<<(ostream &os, const ariel::PhysicalNumber& F) {
 
     switch (F.unit) {
 
-        case Unit ::KM : cout<< F.value<< "[KM]"<<endl; break;
+        case Unit ::KM : os << F.value<<"[km]"; return os; //return cout<< F.value<< "[km]"<<endl;
 
-        case Unit ::M : cout<< F.value<< "[M]"<<endl; break;
+        case Unit ::M : os << F.value<<"[m]"; return os;
 
-        case Unit ::CM : cout<< F.value<< "[CM]"<<endl; break;
+        case Unit ::CM : os << F.value<<"[cm]"; return os;
 
-        case Unit ::TON : cout<< F.value<< "[TON]"<<endl; break;
+        case Unit ::TON : os << F.value<<"[ton]"; return os;
 
-        case Unit ::KG : cout<< F.value<< "[KG]"<<endl; break;
+        case Unit ::KG :  os << F.value<<"[kg]"; return os;
 
-        case Unit ::G: cout<< F.value<< "[G]"<<endl; break;
+        case Unit ::G:  os << F.value<<"[g]"; return os;
 
-        case Unit ::HOUR : cout<< F.value<< "[HOUR]"<<endl; break;
+        case Unit ::HOUR : os << F.value<<"[hour]"; return os;
 
-        case Unit ::MIN : cout<< F.value<< "[MIN]"<<endl; break;
+        case Unit ::MIN : os << F.value<<"[min]"; return os;
 
-        case Unit ::SEC : cout<< F.value<< "[SEC]"<<endl; break;
+        case Unit ::SEC : os << F.value<<"[sec]"; return os;
 
     }
 
@@ -44,7 +44,7 @@ ostream& ariel:: operator<<(ostream &os, const ariel::PhysicalNumber& F) {
 istream &ariel::operator>>(istream &is, PhysicalNumber &F) {
     string input;
     is >> input;
-    int counter;
+    int counter = 0;
 
     size_t index = input.find_first_of('[');
     size_t lastIndex = input.find_first_of(']');
@@ -63,24 +63,27 @@ istream &ariel::operator>>(istream &is, PhysicalNumber &F) {
         case 'K':{
             if (unit[1] == 'G') {
                 F.unit = Unit :: KG;
-                break;
+                F.type = (int)F.unit % 3;
+                return is;
             }
             else F.unit = Unit:: KM;
-            break;
+            F.type = (int)F.unit % 3;
+            return is;
         }
         case 'M':{
             if (unit[1] == 'I') F.unit = Unit :: MIN;
             else F.unit = Unit:: M;
-            break;
+            F.type = (int)F.unit % 3;
+            return is;
         }
-        case 'H': F.unit = Unit:: HOUR; break;
-        case  'T': F.unit = Unit:: TON; break;
-        case 'S': F.unit = Unit:: SEC; break;
-        case 'G': F.unit = Unit:: G; break;
-        case 'C': F.unit = Unit:: CM; break;
+        case 'H': {F.unit = Unit:: HOUR; F.type = (int)F.unit % 3; return is;}
+        case  'T': {F.unit = Unit:: TON; F.type = (int)F.unit % 3; return is;}
+        case 'S': {F.unit = Unit:: SEC; F.type = (int)F.unit % 3; return is;}
+        case 'G': {F.unit = Unit:: G; F.type = (int)F.unit % 3; return is;}
+        case 'C': {F.unit = Unit:: CM; F.type = (int)F.unit % 3; return is;}
 
     }
-    F.type = (int)F.unit % 3;
+
 
 }
 
