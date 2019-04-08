@@ -12,7 +12,7 @@
 
 namespace ariel{
     using namespace std;
-    static const char* units[] = {"ton","hour","km","kg","min","m","g","sec","cm"};
+    static const char* units[] = {"TON","HOUR","KM","KG","MIN","M","G","SEC","CM"};
 
     class PhysicalNumber{
 
@@ -41,20 +41,20 @@ namespace ariel{
 
         PhysicalNumber();
 
-        //operators
+        //friends
         friend ostream& operator<< (ostream& os, const PhysicalNumber& F);
         friend istream& operator>> (istream& is, PhysicalNumber& F);
 
-
+        //operators
         PhysicalNumber operator+ (const PhysicalNumber& f);
         PhysicalNumber operator- (const PhysicalNumber& F2);
         PhysicalNumber operator- ();
         PhysicalNumber operator+ ();
         PhysicalNumber& operator+=(const PhysicalNumber& F);
         PhysicalNumber& operator-=(const PhysicalNumber& F);
-        PhysicalNumber& operator++ (int);
+        const PhysicalNumber operator++ (int);
         PhysicalNumber& operator++ ();
-        PhysicalNumber& operator-- (int);
+        const PhysicalNumber operator-- (int);
         PhysicalNumber& operator-- ();
 
 
@@ -65,7 +65,7 @@ namespace ariel{
 
 
 
-        //compare operatorss
+        //compare operators
         bool operator > (const PhysicalNumber& F);
         bool operator <= (const PhysicalNumber& F);
         bool operator >= (const PhysicalNumber& F);
