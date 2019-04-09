@@ -26,6 +26,7 @@ int main() {
     PhysicalNumber c(2, Unit::HOUR);
     PhysicalNumber d(30, Unit::MIN);
 	PhysicalNumber e(10,Unit::SEC);
+	
 	PhysicalNumber f(3,Unit::TON);
 	PhysicalNumber g(10,Unit::KG);
 	PhysicalNumber h(2,Unit::G);
@@ -37,6 +38,7 @@ int main() {
 	.CHECK_OUTPUT(f,"3[ton]")
 	.CHECK_OUTPUT(d,"30[min]")
 	.CHECK_OUTPUT(i,"100[cm]")
+	.CHECK_OUTPUT(h,"2[g]")
 
 
     .setname("Compatible dimensions")
@@ -60,13 +62,22 @@ int main() {
 
 
     .setname("Incompatible dimensions")
-    .CHECK_THROWS(a+c)
-    .CHECK_THROWS(a+d)
-    .CHECK_THROWS(b+c)
-    .CHECK_THROWS(e+f)
-	.CHECK_THROWS(f+a)
-	.CHECK_THROWS(b+d)
-	.CHECK_THROWS(h+e)
+	.CHECK_EQUAL(a == a, true)
+	.CHECK_EQUAL(a > b, true)
+	.CHECK_EQUAL(b < a, true)
+	.CHECK_EQUAL(c >= d, true)
+	.CHECK_EQUAL(g < h, false)
+	.CHECK_EQUAL(a != a, false)
+	.CHECK_EQUAL(d != e, true)
+	
+    .CHECK_THROWS(a + c)
+    .CHECK_THROWS(a + d)
+    .CHECK_THROWS(b += c)
+    .CHECK_THROWS(e - f)
+	.CHECK_THROWS(f + a)
+	.CHECK_THROWS(b - d)
+	.CHECK_THROWS(h + e)
+	
 	
 
     .setname("Basic input")
