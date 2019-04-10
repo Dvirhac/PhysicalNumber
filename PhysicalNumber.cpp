@@ -59,7 +59,7 @@ istream &ariel::operator>>(istream &is, PhysicalNumber &F) {
         F.value = stod(value);
     }
     catch (...){
-        throw invalid_argument("ERROR!");
+        throw invalid_argument("ERROR!");;
     }
 
     transform(unit.begin(), unit.end(), unit.begin(), ::toupper);
