@@ -179,7 +179,7 @@ PhysicalNumber ariel:: PhysicalNumber:: operator+ (const PhysicalNumber& f)  {
 
 }
 
-PhysicalNumber ariel::PhysicalNumber:: operator- (const PhysicalNumber& F2){
+const PhysicalNumber ariel::PhysicalNumber:: operator- (const PhysicalNumber& F2){
     PhysicalNumber newF2(-(F2.value),F2.unit);
     return (*this + newF2);
 }
