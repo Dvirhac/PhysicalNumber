@@ -117,7 +117,7 @@ PhysicalNumber ariel:: PhysicalNumber:: operator+ (const PhysicalNumber& f)  {
                 case Unit :: KG:
                     return PhysicalNumber(result/1000 , Unit::KG);
                 case Unit :: G:
-				cout << "in gram";
+				
                     return PhysicalNumber(result , Unit::G);
 
             }
@@ -198,23 +198,23 @@ PhysicalNumber &PhysicalNumber::operator-=(const PhysicalNumber &F) {
     this->type = physicalNumber.type;
     return *this;
 }
-const PhysicalNumber PhysicalNumber::operator++(int) {
+ PhysicalNumber PhysicalNumber::operator++(int) {
 	PhysicalNumber copy (*this);
     this->value+=1;
     return copy;
 }
 
-PhysicalNumber &PhysicalNumber::operator++() {
+PhysicalNumber PhysicalNumber::operator++() {
     this->value +=1;
     return *this;
 }
-const PhysicalNumber PhysicalNumber::operator--(int) {
+ PhysicalNumber PhysicalNumber::operator--(int) {
     PhysicalNumber copy (*this);
     this->value-=1;
     return copy;
 }
 
-PhysicalNumber &PhysicalNumber::operator--() {
+PhysicalNumber PhysicalNumber::operator--() {
     this->value -=1;
     return *this;
 }
