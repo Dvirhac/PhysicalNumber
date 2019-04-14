@@ -225,7 +225,7 @@ const PhysicalNumber& PhysicalNumber::operator--(int) {
     return *this;
 }
 
-PhysicalNumber &PhysicalNumber::operator--() {
+PhysicalNumber& PhysicalNumber::operator--() {
     this->value -=1;
     return *this;
 }
