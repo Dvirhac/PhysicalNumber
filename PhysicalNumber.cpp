@@ -50,7 +50,7 @@ istream &ariel::operator>>(istream &is, PhysicalNumber &F) {
 
     size_t index = input.find_first_of('[');
     size_t lastIndex = input.find_first_of(']');
-	if (index == 0 || index == 1 )  return is; //throw invalid_argument("WRONG INPUT!");
+	if (index == 0 || index > input.size() )  {return is; }//throw invalid_argument("WRONG INPUT!");
 	if (lastIndex > input.size()) return is; //throw invalid_argument("WRONG INPUT!");
     string value = input.substr(0,index);
     string unit = input.substr(index+1,lastIndex-index-1);
@@ -185,11 +185,10 @@ PhysicalNumber PhysicalNumber::operator+() {
 
 
 PhysicalNumber& ariel:: PhysicalNumber:: operator+=(const PhysicalNumber &F) {
-    if (this->type != F.type) throw std:: invalid_argument("ERROR");
-    PhysicalNumber physicalNumber(*this + F);
-    this->value = physicalNumber.value;
-    this->type = physicalNumber.type;
-    return *this;
+    
+   
+    
+    return *this = *this + F;
 
 }
 PhysicalNumber &PhysicalNumber::operator-=(const PhysicalNumber &F) {
@@ -200,9 +199,9 @@ PhysicalNumber &PhysicalNumber::operator-=(const PhysicalNumber &F) {
     return *this;
 }
 const PhysicalNumber PhysicalNumber::operator++(int) {
-
+	PhysicalNumber copy (*this);
     this->value+=1;
-    return *this;
+    return copy;
 }
 
 PhysicalNumber &PhysicalNumber::operator++() {
@@ -210,8 +209,9 @@ PhysicalNumber &PhysicalNumber::operator++() {
     return *this;
 }
 const PhysicalNumber PhysicalNumber::operator--(int) {
-    this->value -=1;
-    return *this;
+    PhysicalNumber copy (*this);
+    this->value-=1;
+    return copy;
 }
 
 PhysicalNumber &PhysicalNumber::operator--() {
@@ -328,10 +328,13 @@ PhysicalNumber ariel::PhysicalNumber:: convert(const PhysicalNumber& F) {
 
         case Unit ::TON :f.value = F.value * 1000000; break;
         case Unit ::KG :  f.value = F.value * 1000; break;
+		case Unit ::G :  f.value = F.value ; break;
         case Unit ::HOUR :  f.value = F.value * 3600; break;
         case Unit ::MIN :  f.value = F.value * 60; break;
+		case Unit ::SEC :  f.value = F.value ; break;
         case Unit ::KM :  f.value = F.value * 100000; break;
         case Unit ::M :  f.value = F.value * 100; break;
+		case Unit ::CM :  f.value = F.value ; break;
     }
 
     return f;
