@@ -47,7 +47,7 @@ namespace ariel{
 
         //operators
         PhysicalNumber operator+ (const PhysicalNumber& f);
-        PhysicalNumber operator- (const PhysicalNumber& F2);
+        const PhysicalNumber operator- (const PhysicalNumber& F2);
         PhysicalNumber operator- ();
         PhysicalNumber& operator+ ();
         PhysicalNumber& operator+=(const PhysicalNumber& F);
