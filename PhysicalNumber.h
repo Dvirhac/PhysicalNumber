@@ -52,10 +52,10 @@ namespace ariel{
         PhysicalNumber operator+ ();
         PhysicalNumber& operator+=(const PhysicalNumber& F);
         PhysicalNumber& operator-=(const PhysicalNumber& F);
-        const PhysicalNumber operator++ (int);
-        PhysicalNumber& operator++ ();
-        const PhysicalNumber operator-- (int);
-        PhysicalNumber& operator-- ();
+         PhysicalNumber operator++ (int);
+        PhysicalNumber operator++ ();
+         PhysicalNumber operator-- (int);
+        PhysicalNumber operator-- ();
 
 
 
