@@ -225,7 +225,7 @@ PhysicalNumber PhysicalNumber::operator+() {
 
 
 PhysicalNumber& ariel:: PhysicalNumber:: operator+=(const PhysicalNumber &F) {
-    cout << "in +="
+    cout << "in +=";
     *this = *this + F;
     return *this;
 
