@@ -60,11 +60,11 @@ istream &ariel::operator>>(istream &is, PhysicalNumber &F) {
     else if(unit == "[sec]"){F.unit = Unit ::SEC;}
     else if(unit == "[min]"){F.unit = Unit ::MIN;}
     else if(unit == "[hour]"){F.unit = Unit ::HOUR;}
-
     else {
         return is;
     }
     F.value = value;
+    F.type = (int)F.unit % 3;
     return is;
 
 }
@@ -158,14 +158,12 @@ PhysicalNumber  ariel::PhysicalNumber:: operator-() {
 }
 
 PhysicalNumber PhysicalNumber::operator+() {
-    cout << " in +";
     return *this;
 }
 
 
 PhysicalNumber& ariel:: PhysicalNumber:: operator+=(const PhysicalNumber &F) {
-    *this = *this + F;
-    return *this;
+    return *this = *this + F;
 
 }
 PhysicalNumber &PhysicalNumber::operator-=(const PhysicalNumber &F) {
