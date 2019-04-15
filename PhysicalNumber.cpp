@@ -17,6 +17,8 @@ using namespace std;
 
 ostream& ariel:: operator<<(ostream &os, const ariel::PhysicalNumber& F) {
 
+
+    cout << "in output";
     switch (F.unit) {
 
         case Unit ::KM : os << F.value<<"[km]"; return os; //return cout<< F.value<< "[km]"<<endl;
@@ -46,6 +48,7 @@ ostream& ariel:: operator<<(ostream &os, const ariel::PhysicalNumber& F) {
 
 istream &ariel::operator>>(istream &is, PhysicalNumber &F) {
 
+    cout << "in input";
     string input;
     is >> input;
 
@@ -130,6 +133,7 @@ istream &ariel::operator>>(istream &is, PhysicalNumber &F) {
 
 PhysicalNumber ariel:: PhysicalNumber:: operator+ (const PhysicalNumber& f)  {
 
+    cout << "in + PHN";
     PhysicalNumber F1 (convert(*this));
     PhysicalNumber F2 (convert(f));
 
@@ -203,23 +207,25 @@ PhysicalNumber ariel:: PhysicalNumber:: operator+ (const PhysicalNumber& f)  {
 }
 
 PhysicalNumber ariel::PhysicalNumber:: operator- (const PhysicalNumber& F2){
+    cout << " in - PHN";
     PhysicalNumber newF2(-(F2.value),F2.unit);
     return (*this + newF2);
 }
 
 
 PhysicalNumber  ariel::PhysicalNumber:: operator-() {
+    cout << " in -";
     return PhysicalNumber(-(this->value),this->unit);
 }
 
 PhysicalNumber PhysicalNumber::operator+() {
-
+    cout << " in +";
     return *this;
 }
 
 
 PhysicalNumber& ariel:: PhysicalNumber:: operator+=(const PhysicalNumber &F) {
-
+    cout << "in +="
     *this = *this + F;
     return *this;
 
@@ -227,6 +233,7 @@ PhysicalNumber& ariel:: PhysicalNumber:: operator+=(const PhysicalNumber &F) {
 PhysicalNumber &PhysicalNumber::operator-=(const PhysicalNumber &F) {
     if (this->type != F.type) throw std:: invalid_argument("ERROR");
     PhysicalNumber physicalNumber(*this - F);
+    cout << "in -= ";
     this->value = physicalNumber.value;
     this->type = physicalNumber.type;
     this->type = physicalNumber.type;
@@ -235,21 +242,23 @@ PhysicalNumber &PhysicalNumber::operator-=(const PhysicalNumber &F) {
  PhysicalNumber PhysicalNumber::operator++(int) {
 	PhysicalNumber copy (*this);
     this->value++;
-    cout<< "in ++";
     return copy;
 }
 
 PhysicalNumber PhysicalNumber::operator++() {
+    cout<< "in ++";
     this->value++;
     return *this;
 }
  PhysicalNumber PhysicalNumber::operator--(int) {
     PhysicalNumber copy (*this);
+     cout<< "in --";
     this->value--;
     return copy;
 }
 
 PhysicalNumber PhysicalNumber::operator--() {
+    cout<< "in -- empty";
     this->value --;
     return *this;
 }
