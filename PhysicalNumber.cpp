@@ -50,6 +50,7 @@ istream &ariel::operator>>(istream &is, PhysicalNumber &F) {
     string unit;
     double value;
     is >> value >> unit;
+    transform(unit.begin(), unit.end(),unit.begin(), ::tolower);
 
     if(unit == "[km]"){F.unit = Unit ::KM;}
     else if(unit == "[m]"){F.unit = Unit::M;}
@@ -60,9 +61,11 @@ istream &ariel::operator>>(istream &is, PhysicalNumber &F) {
     else if(unit == "[sec]"){F.unit = Unit ::SEC;}
     else if(unit == "[min]"){F.unit = Unit ::MIN;}
     else if(unit == "[hour]"){F.unit = Unit ::HOUR;}
+
     else {
         return is;
     }
+
     F.value = value;
     F.type = (int)F.unit % 3;
     return is;
@@ -95,7 +98,6 @@ PhysicalNumber ariel:: PhysicalNumber:: operator+ (const PhysicalNumber& f)  {
                 case Unit :: KG:
                     return PhysicalNumber(result/1000 , Unit::KG);
                 case Unit :: G:
-				
                     return PhysicalNumber(result , Unit::G);
 
             }
