@@ -54,7 +54,7 @@ istream &ariel::operator>>(istream &is, PhysicalNumber &F) {
     size_t index = input.find_first_of('[');
     size_t lastIndex = input.find_first_of(']');
 
-	if (index == 0 || index > input.size() || lastIndex < input.size())  {
+	if (index == 0 || index > input.size() || lastIndex > input.size())  {
 	    return is;
 	}
 
