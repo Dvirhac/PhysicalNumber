@@ -76,15 +76,24 @@ istream &ariel::operator>>(istream &is, PhysicalNumber &F) {
                     F.unit = Unit::KG;
                     F.type = (int) F.unit % 3;
                     return is;
-                } else F.unit = Unit::KM;
-                F.type = (int) F.unit % 3;
-                return is;
+                } else {
+                    F.unit = Unit::KM;
+                    F.type = (int) F.unit % 3;
+                    return is;
+                }
             }
             case 'm': {
-                if (unit[1] == 'i') F.unit = Unit::MIN;
-                else F.unit = Unit::M;
-                F.type = (int) F.unit % 3;
-                return is;
+                if (unit[1] == 'i') {
+                    F.unit = Unit::MIN;
+                    F.type = (int) F.unit % 3;
+                    return is;
+                }
+                else {
+                    F.unit = Unit::M;
+                    F.type = (int) F.unit % 3;
+                    return is;
+                }
+                ;
             }
             case 'h': {
                 F.unit = Unit::HOUR;
