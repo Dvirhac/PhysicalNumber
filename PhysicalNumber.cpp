@@ -47,17 +47,37 @@ ostream& ariel:: operator<<(ostream &os, const ariel::PhysicalNumber& F) {
 
 istream &ariel::operator>>(istream &is, PhysicalNumber &F) {
 
-    string input;
-    is >> input;
+    string unit;
+    double value;
+    is >> value >> unit;
+
+    if(unit == "[km]"){F.unit = Unit ::KM;}
+    else if(unit == "[m]"){F.unit = Unit::M;}
+    else if(unit == "[cm]"){F.unit = Unit ::CM;}
+    else if(unit == "[kg]"){F.unit = Unit ::KG;}
+    else if(unit == "[ton]"){F.unit = Unit ::TON;}
+    else if(unit == "[g]"){F.unit = Unit ::G;}
+    else if(unit == "[sec]"){F.unit = Unit ::SEC;}
+    else if(unit == "[min]"){F.unit = Unit ::MIN;}
+    else if(unit == "[hour]"){F.unit = Unit ::HOUR;}
+
+    else return is;
+
+    /*int counter = 0;
 
     size_t index = input.find_first_of('[');
     size_t lastIndex = input.find_first_of(']');
 
-	if (index != 0 && index && input.size() && lastIndex < input.size())  {
+	if (index == 0 || index > input.size() || lastIndex > input.size())  {
+	    return is;
+	}
+    else {
 
-        int counter = 0;
         string value = input.substr(0, index);
         string unit = input.substr(index + 1, lastIndex - index - 1);
+
+        F.value = stod(value);
+        transform(unit.begin(), unit.end(), unit.begin(), ::tolower);
 
         for (int i = 0; i < 9; i++) {
             if (unit == units[i]) counter++;
@@ -65,12 +85,8 @@ istream &ariel::operator>>(istream &is, PhysicalNumber &F) {
 
         if (counter != 1) return is;
 
-        F.value = stod(value);
-        transform(unit.begin(), unit.end(), unit.begin(), ::tolower);
-
-
-
         switch (unit[0]) {
+
             case 'k': {
                 if (unit[1] == 'g') {
                     F.unit = Unit::KG;
@@ -122,9 +138,7 @@ istream &ariel::operator>>(istream &is, PhysicalNumber &F) {
             }
 
         }
-    }
-    else {
-        return is;
+    }*/
 }
 
 
