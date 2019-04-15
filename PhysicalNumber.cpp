@@ -18,7 +18,6 @@ using namespace std;
 ostream& ariel:: operator<<(ostream &os, const ariel::PhysicalNumber& F) {
 
 
-    cout << "in output";
     switch (F.unit) {
 
         case Unit ::KM : os << F.value<<"[km]"; return os; //return cout<< F.value<< "[km]"<<endl;
@@ -48,30 +47,28 @@ ostream& ariel:: operator<<(ostream &os, const ariel::PhysicalNumber& F) {
 
 istream &ariel::operator>>(istream &is, PhysicalNumber &F) {
 
-    cout << "in input";
     string input;
     is >> input;
-
-    int counter = 0;
 
     size_t index = input.find_first_of('[');
     size_t lastIndex = input.find_first_of(']');
 
-	if (index == 0 || index > input.size() || lastIndex > input.size())  {
-	    return is;
-	}
-    else {
+	if (index != 0 && index && input.size() && lastIndex < input.size())  {
+
+        int counter = 0;
         string value = input.substr(0, index);
         string unit = input.substr(index + 1, lastIndex - index - 1);
-
-        F.value = stod(value);
-        transform(unit.begin(), unit.end(), unit.begin(), ::tolower);
 
         for (int i = 0; i < 9; i++) {
             if (unit == units[i]) counter++;
         }
 
-        if (counter != 1) return is; //throw invalid_argument("NOT HERE!");
+        if (counter != 1) return is;
+
+        F.value = stod(value);
+        transform(unit.begin(), unit.end(), unit.begin(), ::tolower);
+
+
 
         switch (unit[0]) {
             case 'k': {
@@ -96,7 +93,7 @@ istream &ariel::operator>>(istream &is, PhysicalNumber &F) {
                     F.type = (int) F.unit % 3;
                     return is;
                 }
-                ;
+
             }
             case 'h': {
                 F.unit = Unit::HOUR;
@@ -126,6 +123,8 @@ istream &ariel::operator>>(istream &is, PhysicalNumber &F) {
 
         }
     }
+    else {
+        return is;
 }
 
 
@@ -133,7 +132,6 @@ istream &ariel::operator>>(istream &is, PhysicalNumber &F) {
 
 PhysicalNumber ariel:: PhysicalNumber:: operator+ (const PhysicalNumber& f)  {
 
-    cout << "in + PHN";
     PhysicalNumber F1 (convert(*this));
     PhysicalNumber F2 (convert(f));
 
@@ -207,7 +205,6 @@ PhysicalNumber ariel:: PhysicalNumber:: operator+ (const PhysicalNumber& f)  {
 }
 
 PhysicalNumber ariel::PhysicalNumber:: operator- (const PhysicalNumber& F2){
-    cout << " in - PHN";
     PhysicalNumber newF2(-(F2.value),F2.unit);
     return (*this + newF2);
 }
@@ -225,7 +222,6 @@ PhysicalNumber PhysicalNumber::operator+() {
 
 
 PhysicalNumber& ariel:: PhysicalNumber:: operator+=(const PhysicalNumber &F) {
-    cout << "in +=";
     *this = *this + F;
     return *this;
 
@@ -233,7 +229,6 @@ PhysicalNumber& ariel:: PhysicalNumber:: operator+=(const PhysicalNumber &F) {
 PhysicalNumber &PhysicalNumber::operator-=(const PhysicalNumber &F) {
     if (this->type != F.type) throw std:: invalid_argument("ERROR");
     PhysicalNumber physicalNumber(*this - F);
-    cout << "in -= ";
     this->value = physicalNumber.value;
     this->type = physicalNumber.type;
     this->type = physicalNumber.type;
@@ -246,19 +241,16 @@ PhysicalNumber &PhysicalNumber::operator-=(const PhysicalNumber &F) {
 }
 
 PhysicalNumber PhysicalNumber::operator++() {
-    cout<< "in ++";
     this->value++;
     return *this;
 }
  PhysicalNumber PhysicalNumber::operator--(int) {
     PhysicalNumber copy (*this);
-     cout<< "in --";
     this->value--;
     return copy;
 }
 
 PhysicalNumber PhysicalNumber::operator--() {
-    cout<< "in -- empty";
     this->value --;
     return *this;
 }
