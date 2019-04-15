@@ -17,29 +17,6 @@ using namespace std;
 
 ostream& ariel:: operator<<(ostream &os, const ariel::PhysicalNumber& F) {
 
-
-    /*switch (F.unit) {
-
-        case Unit ::KM : os << F.value<<"[km]"; return os; //return cout<< F.value<< "[km]"<<endl;
-
-        case Unit ::M : os << F.value<<"[m]"; return os;
-
-        case Unit ::CM : os << F.value<<"[cm]"; return os;
-
-        case Unit ::TON : os << F.value<<"[ton]"; return os;
-
-        case Unit ::KG :  os << F.value<<"[kg]"; return os;
-
-        case Unit ::G:  os << F.value<<"[g]"; return os;
-
-        case Unit ::HOUR : os << F.value<<"[hour]"; return os;
-
-        case Unit ::MIN : os << F.value<<"[min]"; return os;
-
-        case Unit ::SEC : os << F.value<<"[sec]"; return os;
-
-    }*/
-
     os << F.value << "[" << units[(int) F.unit] << "]";
     return os;
 
@@ -183,7 +160,7 @@ PhysicalNumber &PhysicalNumber::operator-=(const PhysicalNumber &F) {
     return copy;
 }
 
-PhysicalNumber PhysicalNumber::operator++() {
+PhysicalNumber& PhysicalNumber::operator++() {
     this->value++;
     return *this;
 }
@@ -193,7 +170,7 @@ PhysicalNumber PhysicalNumber::operator++() {
     return copy;
 }
 
-PhysicalNumber PhysicalNumber::operator--() {
+PhysicalNumber& PhysicalNumber::operator--() {
     this->value --;
     return *this;
 }
