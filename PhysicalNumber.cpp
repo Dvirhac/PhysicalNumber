@@ -219,10 +219,9 @@ PhysicalNumber PhysicalNumber::operator+() {
 
 
 PhysicalNumber& ariel:: PhysicalNumber:: operator+=(const PhysicalNumber &F) {
-    
-   
-    
-    return *this = *this + F;
+
+    *this = *this + F;
+    return *this;
 
 }
 PhysicalNumber &PhysicalNumber::operator-=(const PhysicalNumber &F) {
@@ -230,16 +229,14 @@ PhysicalNumber &PhysicalNumber::operator-=(const PhysicalNumber &F) {
     PhysicalNumber physicalNumber(*this - F);
     this->value = physicalNumber.value;
     this->type = physicalNumber.type;
+    this->type = physicalNumber.type;
     return *this;
 }
  PhysicalNumber PhysicalNumber::operator++(int) {
-	/*PhysicalNumber copy (*this);
+	PhysicalNumber copy (*this);
     this->value++;
     cout<< "in ++";
-    return copy;*/
-
-	++this->value;
-	return *this;
+    return copy;
 }
 
 PhysicalNumber PhysicalNumber::operator++() {
@@ -247,11 +244,9 @@ PhysicalNumber PhysicalNumber::operator++() {
     return *this;
 }
  PhysicalNumber PhysicalNumber::operator--(int) {
-    /*PhysicalNumber copy (*this);
+    PhysicalNumber copy (*this);
     this->value--;
-    return copy;*/
-    --this->value;
-    return *this;
+    return copy;
 }
 
 PhysicalNumber PhysicalNumber::operator--() {
