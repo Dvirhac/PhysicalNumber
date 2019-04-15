@@ -52,7 +52,7 @@ istream &ariel::operator>>(istream &is, PhysicalNumber &F) {
     is >> value >> unit;
 
     if(unit == "[km]"){F.unit = Unit ::KM;}
-    else if(unit == "[m]"){F.unit = Unit::M; F.}
+    else if(unit == "[m]"){F.unit = Unit::M;}
     else if(unit == "[cm]"){F.unit = Unit ::CM;}
     else if(unit == "[kg]"){F.unit = Unit ::KG;}
     else if(unit == "[ton]"){F.unit = Unit ::TON;}

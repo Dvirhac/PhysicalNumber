@@ -16,13 +16,13 @@ namespace ariel{
 
     class PhysicalNumber{
 
-    public:
+    private:
 
         Unit unit;
         double value;
         int type;
 
-
+    public:
         //constructors
         PhysicalNumber(double value, Unit unit){
             this->unit = unit;
@@ -74,7 +74,7 @@ namespace ariel{
         bool operator != (const PhysicalNumber& F);
 
 
-        //functions
+    private:
         PhysicalNumber convert (const PhysicalNumber& F);
 
     };
