@@ -57,44 +57,63 @@ istream &ariel::operator>>(istream &is, PhysicalNumber &F) {
 	if (index == 0 || index > input.size() || lastIndex > input.size())  {
 	    return is;
 	}
+    else {
+        string value = input.substr(0, index);
+        string unit = input.substr(index + 1, lastIndex - index - 1);
 
-    string value = input.substr(0,index);
-    string unit = input.substr(index+1,lastIndex-index-1);
+        F.value = stod(value);
+        transform(unit.begin(), unit.end(), unit.begin(), ::toupper);
 
-    F.value = stod(value);
-    transform(unit.begin(), unit.end(), unit.begin(), ::toupper);
+        for (int i = 0; i < 9; i++) {
+            if (unit == units[i]) counter++;
+        }
 
-    for (int i = 0 ; i < 9 ; i++){
-        if (unit == units[i]) counter++;
-    }
+        if (counter != 1) return is; //throw invalid_argument("NOT HERE!");
 
-    if (counter != 1) return is; //throw invalid_argument("NOT HERE!");
-
-    switch (unit[0]){
-        case 'K':{
-            if (unit[1] == 'G') {
-                F.unit = Unit :: KG;
-                F.type = (int)F.unit % 3;
+        switch (unit[0]) {
+            case 'K': {
+                if (unit[1] == 'G') {
+                    F.unit = Unit::KG;
+                    F.type = (int) F.unit % 3;
+                    return is;
+                } else F.unit = Unit::KM;
+                F.type = (int) F.unit % 3;
                 return is;
             }
-            else F.unit = Unit:: KM;
-            F.type = (int)F.unit % 3;
-            return is;
-        }
-        case 'M':{
-            if (unit[1] == 'I') F.unit = Unit :: MIN;
-            else F.unit = Unit:: M;
-            F.type = (int)F.unit % 3;
-            return is;
-        }
-        case 'H': {F.unit = Unit:: HOUR; F.type = (int)F.unit % 3; return is;}
-        case  'T': {F.unit = Unit:: TON; F.type = (int)F.unit % 3; return is;}
-        case 'S': {F.unit = Unit:: SEC; F.type = (int)F.unit % 3; return is;}
-        case 'G': {F.unit = Unit:: G; F.type = (int)F.unit % 3; return is;}
-        case 'C': {F.unit = Unit:: CM; F.type = (int)F.unit % 3; return is;}
+            case 'M': {
+                if (unit[1] == 'I') F.unit = Unit::MIN;
+                else F.unit = Unit::M;
+                F.type = (int) F.unit % 3;
+                return is;
+            }
+            case 'H': {
+                F.unit = Unit::HOUR;
+                F.type = (int) F.unit % 3;
+                return is;
+            }
+            case 'T': {
+                F.unit = Unit::TON;
+                F.type = (int) F.unit % 3;
+                return is;
+            }
+            case 'S': {
+                F.unit = Unit::SEC;
+                F.type = (int) F.unit % 3;
+                return is;
+            }
+            case 'G': {
+                F.unit = Unit::G;
+                F.type = (int) F.unit % 3;
+                return is;
+            }
+            case 'C': {
+                F.unit = Unit::CM;
+                F.type = (int) F.unit % 3;
+                return is;
+            }
 
+        }
     }
-
 
 }
 
