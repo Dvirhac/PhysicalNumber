@@ -38,7 +38,10 @@ ostream& ariel:: operator<<(ostream &os, const ariel::PhysicalNumber& F) {
         case Unit ::SEC : os << F.value<<"[sec]"; return os;
 
     }
-
+    /*
+    os << F.value << "[" << units[(int) F.unit] << "]";
+    return os;
+*/
 }
 
 istream &ariel::operator>>(istream &is, PhysicalNumber &F) {
@@ -51,8 +54,9 @@ istream &ariel::operator>>(istream &is, PhysicalNumber &F) {
     size_t index = input.find_first_of('[');
     size_t lastIndex = input.find_first_of(']');
 	
-	if (index == 0 || index > input.size() )  {return is; }//throw invalid_argument("WRONG INPUT!");
-	if (lastIndex > input.size()) return is; //throw invalid_argument("WRONG INPUT!");
+	if (index == 0 || index > input.size() ||  lastIndex < input.size() )  {
+	    return is;
+	}
 	
     string value = input.substr(0,index);
     string unit = input.substr(index+1,lastIndex-index-1);
