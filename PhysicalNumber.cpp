@@ -45,19 +45,19 @@ ostream& ariel:: operator<<(ostream &os, const ariel::PhysicalNumber& F) {
 }
 
 istream &ariel::operator>>(istream &is, PhysicalNumber &F) {
-	
+
     string input;
     is >> input;
-	
+
     int counter = 0;
 
     size_t index = input.find_first_of('[');
     size_t lastIndex = input.find_first_of(']');
-	
-	if (index == 0 || index > input.size() ||  lastIndex < input.size() )  {
+
+	if (index == 0 || index > input.size() || lastIndex > input.size())  {
 	    return is;
 	}
-	
+
     string value = input.substr(0,index);
     string unit = input.substr(index+1,lastIndex-index-1);
 
