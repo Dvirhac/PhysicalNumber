@@ -12,7 +12,7 @@
 
 namespace ariel{
     using namespace std;
-    static const char* units[] = {"TON","HOUR","KM","KG","MIN","M","G","SEC","CM"};
+    static const char* units[] = {"ton","hour","km","kg","min","m","g","sec","cm"};
 
     class PhysicalNumber{
 
