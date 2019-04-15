@@ -177,7 +177,7 @@ PhysicalNumber &PhysicalNumber::operator-=(const PhysicalNumber &F) {
 }
  PhysicalNumber PhysicalNumber::operator++(int) {
 	//PhysicalNumber copy (*this);
-    this->value++;
+    ++this->value;
     return *this;
 }
 
@@ -187,7 +187,7 @@ PhysicalNumber PhysicalNumber::operator++() {
 }
  PhysicalNumber PhysicalNumber::operator--(int) {
    // PhysicalNumber copy (*this);
-    this->value--;
+    --this->value;
     return *this;
 }
 
