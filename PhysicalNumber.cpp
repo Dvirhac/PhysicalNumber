@@ -91,7 +91,7 @@ PhysicalNumber ariel:: PhysicalNumber:: operator+ (const PhysicalNumber& f)  {
         //----------------------MASS----------------------
         // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-        if ( F1.type % 3 == 0 ){
+        if ( F1.type == 0 ){
             switch (f1U){
                 case Unit :: TON:
                     return PhysicalNumber(result/1000000 , Unit::TON);
@@ -108,7 +108,7 @@ PhysicalNumber ariel:: PhysicalNumber:: operator+ (const PhysicalNumber& f)  {
             //----------------------TIME----------------------
             // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-        else if (F1.type % 3 == 1 ){
+        else if (F1.type == 1 ){
             switch (f1U) {
                 case Unit::HOUR:
                     return PhysicalNumber(result / 3600 , Unit::HOUR);
@@ -155,7 +155,6 @@ PhysicalNumber ariel::PhysicalNumber:: operator- (const PhysicalNumber& F2){
 
 
 PhysicalNumber  ariel::PhysicalNumber:: operator-() {
-    cout << " in -";
     return PhysicalNumber(-(this->value),this->unit);
 }
 
@@ -177,9 +176,9 @@ PhysicalNumber &PhysicalNumber::operator-=(const PhysicalNumber &F) {
     return *this;
 }
  PhysicalNumber PhysicalNumber::operator++(int) {
-	PhysicalNumber copy (*this);
+	//PhysicalNumber copy (*this);
     this->value++;
-    return copy;
+    return *this;
 }
 
 PhysicalNumber PhysicalNumber::operator++() {
@@ -187,9 +186,9 @@ PhysicalNumber PhysicalNumber::operator++() {
     return *this;
 }
  PhysicalNumber PhysicalNumber::operator--(int) {
-    PhysicalNumber copy (*this);
+   // PhysicalNumber copy (*this);
     this->value--;
-    return copy;
+    return *this;
 }
 
 PhysicalNumber PhysicalNumber::operator--() {
