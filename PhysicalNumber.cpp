@@ -62,7 +62,7 @@ istream &ariel::operator>>(istream &is, PhysicalNumber &F) {
         string unit = input.substr(index + 1, lastIndex - index - 1);
 
         F.value = stod(value);
-        transform(unit.begin(), unit.end(), unit.begin(), ::toupper);
+        transform(unit.begin(), unit.end(), unit.begin(), ::tolower);
 
         for (int i = 0; i < 9; i++) {
             if (unit == units[i]) counter++;
@@ -71,8 +71,8 @@ istream &ariel::operator>>(istream &is, PhysicalNumber &F) {
         if (counter != 1) return is; //throw invalid_argument("NOT HERE!");
 
         switch (unit[0]) {
-            case 'K': {
-                if (unit[1] == 'G') {
+            case 'k': {
+                if (unit[1] == 'g') {
                     F.unit = Unit::KG;
                     F.type = (int) F.unit % 3;
                     return is;
@@ -80,33 +80,33 @@ istream &ariel::operator>>(istream &is, PhysicalNumber &F) {
                 F.type = (int) F.unit % 3;
                 return is;
             }
-            case 'M': {
+            case 'm': {
                 if (unit[1] == 'I') F.unit = Unit::MIN;
                 else F.unit = Unit::M;
                 F.type = (int) F.unit % 3;
                 return is;
             }
-            case 'H': {
+            case 'h': {
                 F.unit = Unit::HOUR;
                 F.type = (int) F.unit % 3;
                 return is;
             }
-            case 'T': {
+            case 't': {
                 F.unit = Unit::TON;
                 F.type = (int) F.unit % 3;
                 return is;
             }
-            case 'S': {
+            case 's': {
                 F.unit = Unit::SEC;
                 F.type = (int) F.unit % 3;
                 return is;
             }
-            case 'G': {
+            case 'g': {
                 F.unit = Unit::G;
                 F.type = (int) F.unit % 3;
                 return is;
             }
-            case 'C': {
+            case 'c': {
                 F.unit = Unit::CM;
                 F.type = (int) F.unit % 3;
                 return is;
@@ -225,11 +225,9 @@ PhysicalNumber &PhysicalNumber::operator-=(const PhysicalNumber &F) {
     return *this;
 }
  PhysicalNumber PhysicalNumber::operator++(int) {
-	/*PhysicalNumber copy (*this);
+	PhysicalNumber copy (*this);
     this->value+=1;
-    return copy*/;
-    this->value++;
-    return *this;
+    return copy;
 }
 
 PhysicalNumber PhysicalNumber::operator++() {
@@ -237,11 +235,9 @@ PhysicalNumber PhysicalNumber::operator++() {
     return *this;
 }
  PhysicalNumber PhysicalNumber::operator--(int) {
-   /* PhysicalNumber copy (*this);
+    PhysicalNumber copy (*this);
     this->value-=1;
-    return copy;*/
-   this->value--;
-   return *this;
+    return copy;
 }
 
 PhysicalNumber PhysicalNumber::operator--() {
