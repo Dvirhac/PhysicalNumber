@@ -81,7 +81,7 @@ istream &ariel::operator>>(istream &is, PhysicalNumber &F) {
                 return is;
             }
             case 'm': {
-                if (unit[1] == 'I') F.unit = Unit::MIN;
+                if (unit[1] == 'i') F.unit = Unit::MIN;
                 else F.unit = Unit::M;
                 F.type = (int) F.unit % 3;
                 return is;
